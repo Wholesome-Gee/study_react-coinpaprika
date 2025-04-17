@@ -20,9 +20,10 @@ const Coin = styled.li`
   border-radius: 15px;
   margin-bottom: 10px;
   a {
+    display: flex;
+    align-items: center;
     padding: 20px;
     transition: color 0.2s ease-in;
-    display: block;
   }
   &:hover {
     a {
@@ -37,6 +38,11 @@ const Title = styled.h1`
 const Loader = styled.span`
   text-align: center;
   display: block;
+`;
+const Img = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
 `;
 
 interface ICoin {
@@ -62,6 +68,8 @@ function Coins() {
   }, []);
   // useEffect를 사용하여 api data 요청  #5.3
 
+  console.log("Coins.tsx 71", coins);
+
   return (
     <Container>
       <Header>
@@ -73,7 +81,10 @@ function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}> {coin.name} &rarr; </Link>
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                <Img src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`} alt="코인 심볼 이미지" />
+                {coin.name} &rarr;
+              </Link>
             </Coin>
           ))}
         </CoinsList>
@@ -86,6 +97,8 @@ JSX에서 조건문 사용할 땐 삼항연산자  #5.3
 JSX에서 반복문 사용할 땐 map  #5.2
 map의 item에는 key가 있어야한다.  #5.2
 <Link>는 새로고침 기능이 없는 a태그의 역할  #5.2
+state={{ key:value }}는 react-router-dom의 Link로 state 변수를 같이 전달하는 방법이다. 
+useLocation()을 사용하여 state를 사용할 수 있다.  #5.4
 */
 
 export default Coins;

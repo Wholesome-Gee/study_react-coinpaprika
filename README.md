@@ -47,3 +47,13 @@
 **📗useEffect()와 fetch()로 받아온 api data에 type하기**
 
 ---
+
+### #5.4
+
+**📗react-router-dom의 Link를 사용하여 state를 전달**
+
+- `<Link to={'url'} state={{ key:value }}> link </Link>`
+
+**📗useLocation()으로 Link로부터 넘어온 현재 URL에 대한 정보를 받기**
+
+---
