@@ -57,3 +57,12 @@
 **📗useLocation()으로 Link로부터 넘어온 현재 URL에 대한 정보를 받기**
 
 ---
+
+### #5.5 ~ #5.6
+
+**📗개발자도구 console을 활용해 많은 properties를 갖고있는 object의 type을 빠르게 하는 꿀팁**
+
+- console.log(object)
+- 개발자도구 console에서 object 우클릭 → 'Store as gloval variable
+- Object.keys(temp1).join()
+- Object.values(temp1).map(item => typeof item).join()
