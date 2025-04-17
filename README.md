@@ -66,3 +66,11 @@
 - 개발자도구 console에서 object 우클릭 → 'Store as gloval variable
 - Object.keys(temp1).join()
 - Object.values(temp1).map(item => typeof item).join()
+
+---
+
+### #5.7
+
+영상시청 후 'horrorkist' 댓글 참고
+**📗nested route 설정하는 방법**
+**📗react-router-dom의 Outlet을 활용하여 nested route가 들어갈 위치 정하기**
