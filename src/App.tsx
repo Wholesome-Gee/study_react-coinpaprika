@@ -58,6 +58,7 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration:none;
+    color: inherit;
   }
 `;
 // createGlobalStyle은 globalStyle을 지정할 때 사용한다.  #5.1

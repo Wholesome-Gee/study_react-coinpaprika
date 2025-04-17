@@ -31,3 +31,12 @@
 ### #5.1
 
 **📗Styled-components의 createGlobalStyle을 사용하여 GlobalStyle 지정하기**
+
+---
+
+### #5.3
+
+**📗JSX에서 반복문 사용할 땐 map()**  
+**📗react-router-dom의 Link를 사용하여 route 이동**
+
+---
