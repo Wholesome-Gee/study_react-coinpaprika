@@ -27,3 +27,7 @@
 **📗useParams()와 useParams()에 type하기**
 
 ---
+
+### #5.1
+
+**📗Styled-components의 createGlobalStyle을 사용하여 GlobalStyle 지정하기**
