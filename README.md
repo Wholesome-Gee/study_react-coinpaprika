@@ -9,7 +9,7 @@
 
 - react v18 : `npm uninstall react react-dom`, `npm i react@18 react-dom@18`
 - styled-components : `npm i styled-components`, `npm i --save-dev @types/styled-components`
-- react-router-dom : `npm i react-router-dom@5.3.0`, `npm i --save-dev @types/react-router-dom`
+- react-router-dom : `npm i react-router-dom`, `npm i --save-dev @types/react-router-dom`
 - react-query : `npm i react-query`
   - react-query는 React v18 이하에서 구동이 가능하다.
 
@@ -19,10 +19,10 @@
 
 **📗react-router-dom 으로 router 설정하기**
 
-- `npm i react-router-dom@5.3.0`
+- `npm i react-router-dom`
 - `npm i --save-dev @types/react-router-dom`
 - src안에 routes폴더, Router.tsx 생성
-  - Router.tsx → `import { BrowserRouter, Route, Switch } from "react-router-dom"`
+  - Router.tsx → `import { BrowserRouter, Routes, Route } from "react-router-dom"`
 
 **📗useParams()와 useParams()에 type하기**
 
@@ -34,9 +34,16 @@
 
 ---
 
-### #5.3
+### #5.2
 
 **📗JSX에서 반복문 사용할 땐 map()**  
 **📗react-router-dom의 Link를 사용하여 route 이동**
+
+---
+
+### #5.3
+
+**📗JSX에서 조건문 사용할 땐 삼항연산자**  
+**📗useEffect()와 fetch()로 받아온 api data에 type하기**
 
 ---
