@@ -7,4 +7,3 @@ declare module "styled-components" {
     buttonColor: string;
   }
 }
-// DefaultTheme = theme의 interface를 정의 하는곳  #3.6

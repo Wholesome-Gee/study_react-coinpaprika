@@ -12,5 +12,3 @@ const darkTheme: DefaultTheme = {
 };
 
 export { lightTheme, darkTheme };
-
-// theme.ts는 theme을 정의하는 곳
