@@ -113,3 +113,16 @@
 - nested route를 설정하고 적용할 시,  
   `<Outlet context={{key:value}}/>`를 하여 props(context)를 전달할 수 있다.
 - 전달된 `props(context)는 useOutletContext()`를 통해 확인할 수 있다.
+
+---
+
+### #5.13 ~ #5.14
+
+**📗ApexChart로 chart graph 쉽게 표현하기**
+
+- `npm i --save react-apexcharts apexcharts`
+- `import ApexChart from "react-apexcharts"`
+
+공식문서 : https://apexcharts.com/
+
+---
