@@ -93,3 +93,12 @@
 - index.tsx `const queryClient = new QueryClient();`
 - index.tsx `<QueryClientProvider client={queryClient}>`
 - `const { isLoading, data } = useQuery<IData>("allCoins",fetch function)`
+
+---
+
+### #5.10
+
+**📗react-query/devtools의 ReactQueryDevtools로 react-query를 시각화하기**
+
+- App.tsx `import { ReactQueryDevtools } from "react-query/devtools";`
+- App.tsx `<ReactQueryDevtools initialIsOpen={true} />`

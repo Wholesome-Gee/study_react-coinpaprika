@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { ReactQueryDevtools } from "react-query/devtools"; // react-query 시각화 작업을위한 import
 import Router from "./Router";
 
 const GlobalStyles = createGlobalStyle`
@@ -68,8 +69,12 @@ function App() {
     <>
       <GlobalStyles />
       <Router />
+      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }
+/*
+72. react=query 시각화 작업
+*/
 
 export default App;

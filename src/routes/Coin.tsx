@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation, useMatch, useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -65,7 +67,7 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
-interface IInfo {
+interface IInfoData {
   id: string;
   name: string;
   symbol: string;
@@ -87,7 +89,7 @@ interface IInfo {
   first_data_at: string;
   last_data_at: string;
 }
-interface IPriceInfo {
+interface ITickersData {
   id: string;
   name: string;
   symbol: string;
@@ -124,30 +126,22 @@ object의 많은 properties를 개발자도구를 활용해 쉽게 type하는 �
 */
 
 function Coin() {
-  const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState<IInfo>();
-  const [priceInfo, setPriceInfo] = useState<IPriceInfo>();
   const { state } = useLocation();
   const { coinId } = useParams();
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const { isLoading: isInfoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () => fetchCoinInfo(coinId));
+  const { isLoading: isTickersLoading, data: tickersData } = useQuery<ITickersData>(["tickers", coinId], () => fetchCoinTickers(coinId));
+  let loading = isInfoLoading || isTickersLoading;
   /*
+  const [loading, setLoading] = useState(true);
+  const [info, setInfo] = useState<IInfo>();
+  const [priceInfo, setPriceInfo] = useState<IPriceInfo>();
+  
   useLocation()은 react-router-dom의 Link로부터 넘어온 URL의 정보를 제공한다. (pathname, state, search, hash, key 등)  #5.4
   useParams()는 react-router-dom의 route로부터 넘어온 URL Parameter를 제공한다. (ex. path=/:coinId )  #5.0
   useRouteMatch(url)은 현재 유저가 url에 위치하고 있다면 Object를, 아니라면 null을 반환한다.  #5.8
   */
-
-  useEffect(() => {
-    async function fetchData() {
-      const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
-      const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-
   console.log("Coin.tsx 37", useLocation());
   console.log("Coin.tsx 38", useParams());
   console.log("Coin.tsx 39", priceMatch);
@@ -155,7 +149,7 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{state?.name ? state.name : loading ? "Loading..." : info?.name}</Title>
+        <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -164,26 +158,26 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
-              <span>{info?.rank}</span>
+              <span>{infoData?.rank}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
-              <span>${info?.symbol}</span>
+              <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Open Source:</span>
-              <span>{info?.open_source ? "Yes" : "No"}</span>
+              <span>{infoData?.open_source ? "Yes" : "No"}</span>
             </OverviewItem>
           </Overview>
-          <Description>{info?.description}</Description>
+          <Description>{infoData?.description}</Description>
           <Overview>
             <OverviewItem>
               <span>Total Supply:</span>
-              <span>{priceInfo?.total_supply}</span>
+              <span>{tickersData?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Max Supply:</span>
-              <span>{priceInfo?.max_supply}</span>
+              <span>{tickersData?.max_supply}</span>
             </OverviewItem>
           </Overview>
           <Tabs>
