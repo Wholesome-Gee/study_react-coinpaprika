@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router";
+import { Outlet, useLocation, useMatch, useParams } from "react-router";
 import styled from "styled-components";
-import Price from "./Price";
-import Chart from "./Chart";
+import { Link } from "react-router-dom";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -23,7 +22,7 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
 `;
-const Overview = styled.div`
+const Overview = styled.div`c
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.5);
@@ -45,7 +44,26 @@ const OverviewItem = styled.div`
 const Description = styled.p`
   margin: 20px 0px;
 `;
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
 
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+  a {
+    display: block;
+  }
+`;
 interface IInfo {
   id: string;
   name: string;
@@ -110,9 +128,12 @@ function Coin() {
   const [priceInfo, setPriceInfo] = useState<IPriceInfo>();
   const { state } = useLocation();
   const { coinId } = useParams();
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
   /*
-  useLocation()은 react-router-dom의 Link로부터 넘어온 URL의 정보를 제공한다. (pathname, state, search, hash, key 등)
-  useParams()는 react-router-dom의 route로부터 넘어온 URL Parameter를 제공한다. (ex. path=/:coinId ) 
+  useLocation()은 react-router-dom의 Link로부터 넘어온 URL의 정보를 제공한다. (pathname, state, search, hash, key 등)  #5.4
+  useParams()는 react-router-dom의 route로부터 넘어온 URL Parameter를 제공한다. (ex. path=/:coinId )  #5.0
+  useRouteMatch(url)은 현재 유저가 url에 위치하고 있다면 Object를, 아니라면 null을 반환한다.  #5.8
   */
 
   useEffect(() => {
@@ -164,6 +185,14 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
           <Outlet />
         </>
       )}

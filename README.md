@@ -74,3 +74,13 @@
 영상시청 후 'horrorkist' 댓글 참고
 **📗nested route 설정하는 방법**
 **📗react-router-dom의 Outlet을 활용하여 nested route가 들어갈 위치 정하기**
+
+---
+
+### #5.8
+
+**📗useMatch(route)를 활용하여 유저가 현재 route에 위치하고 있는지 확인하기**
+
+- `const priceMatch = useMatch('/:coinId/price')`
+
+---
