@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { Helmet } from "react-helmet"; // npm i react-helmet,  npm i --save-dev @types/react-helmet  #5.15
 
 const Title = styled.h1`
   font-size: 48px;
@@ -148,6 +149,9 @@ function Coin() {
 
   return (
     <Container>
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
       </Header>
@@ -195,7 +199,7 @@ function Coin() {
   );
 }
 /*
-useParams()는 route의 url parameter를 받아오는 React hook  #5.0
+<Helmet>은 html의 <head>에 전달되는 내용들이다.  #5.15
 <Outlet>은 Router.tsx에 지정한 nested router들이 들어올 공간이다.  #5.7 'horrorkist 댓글 참고
 <Outlet>은 context를 통하여 nested route component에게 props(context)를 전달할 수 있다.  #5.12 'salt01' 댓글 참고
 */

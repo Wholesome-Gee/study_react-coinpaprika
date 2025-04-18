@@ -126,3 +126,16 @@
 공식문서 : https://apexcharts.com/
 
 ---
+
+### #5.15
+
+**📗useQuery()의 {refetchInterval:10000}을 사용하여 10s마다 refetch 설정하기**
+
+- `const { isLoading, data } = useQuery("dataId", fetch function, {refetchinterval:10000}`
+
+**📗helmet을 이용하여 JSX에서 html head title 변경하기**
+
+- npm i react-helmet
+- npm i --save-dev @types/react-helmet
+
+---

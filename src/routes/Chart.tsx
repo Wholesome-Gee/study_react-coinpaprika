@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import { useOutletContext } from "react-router-dom";
 import ApexChart from "react-apexcharts"; // npm i --save react-apexcharts apexcharts  #5.13
+import { Helmet } from "react-helmet";
 
 interface IData {
   time_open: number;
@@ -18,9 +19,10 @@ interface IContext {
 }
 function Chart() {
   const { coinId } = useOutletContext<IContext>();
-  const { isLoading, data } = useQuery<IData[]>("ochlv", () => fetchCoinHistory(coinId));
+  const { isLoading, data } = useQuery<IData[]>("ohlcv", () => fetchCoinHistory(coinId), { refetchInterval: 10000 });
   /*
   useOutletContext()는 상위 component로부터 nested route component에게 전달된 props(context)를 확인하는 방법  #5.12 'salt01' 댓글 참고
+  useQuery()의 3번째 parameter인 {refetchInterval:10000}은 10000ms마다 refetch를 시도한다  #5.15
   */
   return (
     <>
