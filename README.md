@@ -71,8 +71,8 @@
 
 ### #5.7
 
-영상시청 후 'horrorkist' 댓글 참고
-**📗nested route 설정하는 방법**
+영상시청 후 'horrorkist' 댓글 참고  
+**📗nested route 설정하는 방법**  
 **📗react-router-dom의 Outlet을 활용하여 nested route가 들어갈 위치 정하기**
 
 ---
@@ -84,3 +84,12 @@
 - `const priceMatch = useMatch('/:coinId/price')`
 
 ---
+
+### #5.9
+
+**📗api fetch 함수는 api.ts에 작성하여 component와 분리하는 습관을 갖자**  
+**📗react-query의 useQuery()를 활용하여 data를 fetch하는 방법**
+
+- index.tsx `const queryClient = new QueryClient();`
+- index.tsx `<QueryClientProvider client={queryClient}>`
+- `const { isLoading, data } = useQuery<IData>("allCoins",fetch function)`

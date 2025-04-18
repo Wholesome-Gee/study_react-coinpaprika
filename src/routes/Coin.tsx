@@ -22,7 +22,7 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
 `;
-const Overview = styled.div`c
+const Overview = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.5);
@@ -33,7 +33,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 33%;
   span:first-child {
     font-size: 10px;
     font-weight: 400;
@@ -61,6 +61,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   border-radius: 10px;
   color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
   a {
+    padding: 7px 0;
     display: block;
   }
 `;
@@ -149,7 +150,7 @@ function Coin() {
 
   console.log("Coin.tsx 37", useLocation());
   console.log("Coin.tsx 38", useParams());
-  console.log(info);
+  console.log("Coin.tsx 39", priceMatch);
 
   return (
     <Container>

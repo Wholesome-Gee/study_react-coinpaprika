@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoins } from "../api";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -55,6 +57,13 @@ interface ICoin {
   type: string;
 }
 function Coins() {
+  const { isLoading, data: coins } = useQuery<ICoin[]>("allcoins", fetchCoins);
+  /*
+  react-query의 useQuery('data Id', fetch function)은 fetch function을 실행 후 isLoading과 data를 반환한다.  #5.9
+  또한, react-query는 한번 불러온 데이터를 캐시에 저장해둔다.  #5.9
+  */
+  /* 
+  useQuery 사용전 coins를 fetch로 받아오는 함수
   const [coins, setCoins] = useState<ICoin[]>([]); // <ICoin[]> 배열 state에 type하는 방법  #5.3
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +76,8 @@ function Coins() {
     fetchCoins();
   }, []);
   // useEffect를 사용하여 api data 요청  #5.3
-
+  */
+  console.log("Coins.tsx 71", isLoading);
   console.log("Coins.tsx 71", coins);
 
   return (
@@ -75,11 +85,11 @@ function Coins() {
       <Header>
         <Title>코인리스트</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {coins.map((coin) => (
+          {coins?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={{ name: coin.name }}>
                 <Img src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`} alt="코인 심볼 이미지" />
