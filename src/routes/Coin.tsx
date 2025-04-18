@@ -188,7 +188,7 @@ function Coin() {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet />
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
@@ -196,7 +196,8 @@ function Coin() {
 }
 /*
 useParams()는 route의 url parameter를 받아오는 React hook  #5.0
-<Outlet>은 Router.tsx에 지정한 nested router들이 들어올 공간이다.  #5.7 'horrorkist댓글참고
+<Outlet>은 Router.tsx에 지정한 nested router들이 들어올 공간이다.  #5.7 'horrorkist 댓글 참고
+<Outlet>은 context를 통하여 nested route component에게 props(context)를 전달할 수 있다.  #5.12 'salt01' 댓글 참고
 */
 
 export default Coin;

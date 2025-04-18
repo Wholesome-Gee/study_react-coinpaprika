@@ -102,3 +102,14 @@
 
 - App.tsx `import { ReactQueryDevtools } from "react-query/devtools";`
 - App.tsx `<ReactQueryDevtools initialIsOpen={true} />`
+
+---
+
+### #5.12
+
+**📗nested route에게 Outlet의 context를 활용하여 props보내는 방법**  
+**📗useOutletContext()를 통해 nested route component가 상위 component로부터 props(context)전달 받기**
+
+- nested route를 설정하고 적용할 시,  
+  `<Outlet context={{key:value}}/>`를 하여 props(context)를 전달할 수 있다.
+- 전달된 `props(context)는 useOutletContext()`를 통해 확인할 수 있다.
