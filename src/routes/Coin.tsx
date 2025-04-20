@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Outlet, useLocation, useMatch, useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet } from "react-helmet"; // npm i react-helmet,  npm i --save-dev @types/react-helmet  #5.15
 
 const Title = styled.h1`
-  font-size: 48px;
+  font-size: 36px;
   color: ${(props) => props.theme.accentColor};
 `;
 const Loader = styled.span`
@@ -24,11 +23,25 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+`;
+const HomeButton = styled.button`
+  border: none;
+  outline: none;
+  font-size: 30px;
+  font-weight: 800;
+  background-color: inherit;
+  color: ${(props) => props.theme.accentColor};
+  position: absolute;
+  left: 20px;
+  &:hover {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.boxColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -36,7 +49,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 33%;
+  width: 100%;
   span:first-child {
     font-size: 10px;
     font-weight: 400;
@@ -53,13 +66,12 @@ const Tabs = styled.div`
   margin: 25px 0px;
   gap: 10px;
 `;
-
 const Tab = styled.span<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.boxColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
@@ -68,6 +80,7 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
+
 interface IInfoData {
   id: string;
   name: string;
@@ -134,6 +147,7 @@ function Coin() {
   const { isLoading: isInfoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () => fetchCoinInfo(coinId));
   const { isLoading: isTickersLoading, data: tickersData } = useQuery<ITickersData>(["tickers", coinId], () => fetchCoinTickers(coinId));
   let loading = isInfoLoading || isTickersLoading;
+
   /*
   const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<IInfo>();
@@ -153,7 +167,10 @@ function Coin() {
         <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
       </Helmet>
       <Header>
-        <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
+        <HomeButton>
+          <Link to={"/"}>←</Link>
+        </HomeButton>
+        <Title>코인: {state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -161,27 +178,27 @@ function Coin() {
         <>
           <Overview>
             <OverviewItem>
-              <span>Rank:</span>
+              <span>순위:</span>
               <span>{infoData?.rank}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Symbol:</span>
+              <span>심볼:</span>
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>출시일:</span>
+              <span>{infoData?.started_at?.slice(0, 10)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
           <Overview>
             <OverviewItem>
-              <span>Total Supply:</span>
-              <span>{tickersData?.total_supply}</span>
+              <span>총 공급량:</span>
+              <span>{`${tickersData?.total_supply} ${infoData?.symbol}`}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Max Supply:</span>
-              <span>{tickersData?.max_supply}</span>
+              <span>최대 공급량:</span>
+              <span>{`${tickersData?.max_supply} ${infoData?.symbol}`}</span>
             </OverviewItem>
           </Overview>
           <Tabs>
@@ -192,7 +209,7 @@ function Coin() {
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet context={{ coinId }} />
+          <Outlet context={{ coinId, tickersData }} />
         </>
       )}
     </Container>

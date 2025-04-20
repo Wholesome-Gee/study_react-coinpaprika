@@ -5,7 +5,7 @@ import Coin from "./routes/Coin";
 import Chart from "./routes/Chart";
 import Price from "./routes/Price";
 
-function Router() {
+function Router({ isDark }: { isDark: boolean }) {
   return (
     <BrowserRouter>
       <Routes>
@@ -13,7 +13,7 @@ function Router() {
           <Route path="chart" element={<Chart />} />
           <Route path="price" element={<Price />} />
         </Route>
-        <Route path="/" element={<Coins />} />
+        <Route path="/" element={<Coins isDark={isDark} />} />
       </Routes>
     </BrowserRouter>
   );

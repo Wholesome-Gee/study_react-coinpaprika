@@ -1,6 +1,8 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools"; // react-query 시각화 작업을위한 import
 import Router from "./Router";
+import { darkTheme, lightTheme } from "./theme";
+import { useState } from "react";
 
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
@@ -55,22 +57,54 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: "Nanum Gothic", sans-serif;
     background-color:${(props) => props.theme.backgroundColor};
-    color:${(props) => props.theme.textColor}
+    color:${(props) => props.theme.textColor};
+    transition: all 0.2s ease-in-out;
   }
   a {
     text-decoration:none;
     color: inherit;
   }
 `;
+const ThemeButton = styled.button`
+  border: none;
+  outline: none;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: ${(props) => props.theme.textColor};
+  span {
+    margin: 0;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+  }
+  &:hover span {
+    transform: scale(1.2);
+  }
+`;
 // createGlobalStyle은 globalStyle을 지정할 때 사용한다.  #5.1
 
 function App() {
+  const [isDark, setIsDark] = useState(true);
   return (
-    <>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyles />
-      <Router />
+      <ThemeButton
+        onClick={() => {
+          setIsDark((current) => !current);
+        }}
+      >
+        <span>{isDark ? "☀️" : "🌙"}</span>
+      </ThemeButton>
+      <Router isDark={isDark} />
       <ReactQueryDevtools initialIsOpen={true} />
-    </>
+    </ThemeProvider>
   );
 }
 /*

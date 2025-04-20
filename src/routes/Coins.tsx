@@ -17,8 +17,8 @@ const Header = styled.header`
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
-  color: black;
+  background-color: ${(props) => props.theme.boxColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -56,7 +56,7 @@ interface ICoin {
   is_active: boolean;
   type: string;
 }
-function Coins() {
+function Coins({ isDark }: { isDark: boolean }) {
   const { isLoading, data: coins } = useQuery<ICoin[]>("allcoins", fetchCoins);
   /*
   react-query의 useQuery('data Id', fetch function)은 fetch function을 실행 후 isLoading과 data를 반환한다.  #5.9
